@@ -85,52 +85,65 @@ class _demoState extends State<demo> {
 class demo extends StatelessWidget {
   TextEditingController t = TextEditingController();
   TextEditingController t1 = TextEditingController();
+
   //String radio = "";
-  List l=["Metric","Imperial"];
+  //List l = ["Metric", "Imperial"];
 
   @override
   Widget build(BuildContext context) {
     myclass m = Provider.of(context);
 
-    var get;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
-          Row(
-            children: [
-              Text("Units:"),
-              Radio(
-                value: "Metric ",
-                groupValue: m.get,
-                onChanged: (value) {
-
-                },
-              ),
-              Text("Metric  "),
-              Radio(
-                value: "Imperial",
-                groupValue: m.get,
-                onChanged: (value) {},
-              ),
-              Text("Imperial "),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                Text("Units:"),
+                Radio(
+                  value: "M",
+                  groupValue: m.get,
+                  onChanged: (value) {
+                    m.set();
+                  },
+                ),
+                Text("Metric"),
+                Radio(
+                  value: "I",
+                  groupValue: m.get,
+                  onChanged: (value) {
+                    m.set2();
+                  },
+                ),
+                Text("Imperial"),
+              ],
+            ),
           ),
-          Text("Units: All are select"),
+          //Text("Units: All are select"),
           /*PopupMenuButton(itemBuilder: (context) {
             return [PopupMenuItem(child: Text("Metric")),
               PopupMenuItem(child: Text("Imperial"))
             ];
           },),*/
 
+        Row(children: [
+          Radio(
+            value: "cm",
+            groupValue: m.get2,
+            onChanged: (value) {
+              m.setcm();
+            },
+          ),Text("centimeter"),
+        ],),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: t,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Weight:"),
-
+                  border: OutlineInputBorder(), labelText: "Weight:",suffix: Text("kg"),),
             ),
           ),
           Padding(
@@ -138,8 +151,7 @@ class demo extends StatelessWidget {
             child: TextField(
               controller: t1,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "height:"),
+                  border: OutlineInputBorder(), labelText: "height:",suffix: Text("m")),
             ),
           ),
           Padding(
@@ -160,7 +172,6 @@ class demo extends StatelessWidget {
               ],
             ),
           ),
-
         ],
       ),
     );
